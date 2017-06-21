@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Bee in Your Bonnet</string>
+    <string name="search">Search</string>
+    <string name="type_here">Type Here</string>
+    <string name="no_internet_message">No Internet Connection</string>
+    <string name="no_books_message">Not a Book Buzzing</string>
+</resources>
