@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class BookAdapter extends ArrayAdapter<Book> {
@@ -28,7 +30,11 @@ public class BookAdapter extends ArrayAdapter<Book> {
         Book currentBook = getItem(position);
 
         ImageView thumbnailView = (ImageView) listItemView.findViewById(R.id.small_thumbnail);
-//        set thumbnailView via url in background thread
+        if (currentBook.getmThumbnailUrl() == null) {
+            thumbnailView.setImageResource(R.drawable.no_image_found_placeholder);
+        } else {
+            Picasso.with(getContext()).load(currentBook.getmThumbnailUrl()).into(thumbnailView);
+        }
 
         TextView titleView = (TextView) listItemView.findViewById(R.id.book_title);
         titleView.setText(currentBook.getmTitle());

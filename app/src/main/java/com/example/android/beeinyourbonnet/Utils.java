@@ -76,7 +76,7 @@ public final class Utils {
 
                 String thumbnailURL = imageLinks.getString("smallThumbnail");
 
-                String url = currentBook.getString("selfLink");
+                String url = volumeInfo.getString("previewLink");
 
                 Book book = new Book(title, authors, thumbnailURL, url, description);
 

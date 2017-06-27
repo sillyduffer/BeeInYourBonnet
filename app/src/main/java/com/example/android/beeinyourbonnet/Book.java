@@ -11,7 +11,9 @@ public class Book {
     public Book(String title, String author, String thumbnailUrl, String url, String description) {
 
         mTitle = title;
-        mAuthor = author;
+        String placeHolder = author.replaceAll("[\\[\\]]", "");
+        String placeHolderTwo = placeHolder.replaceAll("\"", "");
+        mAuthor = placeHolderTwo.replaceAll(",", ", ");
         mThumbnailUrl = thumbnailUrl;
         mUrl = url;
         mDescription = description;
