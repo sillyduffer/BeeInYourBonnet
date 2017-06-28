@@ -23,31 +23,44 @@ public class BookAdapter extends ArrayAdapter<Book> {
     @NonNull
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View listItemView = convertView;
+        ViewHolder holder;
+
         if (listItemView == null) {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.book_list_item, parent, false);
+            holder = new ViewHolder();
+            holder.authorView = (TextView) listItemView.findViewById(R.id.book_author);
+            holder.titleView = (TextView) listItemView.findViewById(R.id.book_title);
+            holder.descriptionView = (TextView) listItemView.findViewById(R.id.book_description);
+            holder.thumbnailView = (ImageView) listItemView.findViewById(R.id.small_thumbnail);
+
+            listItemView.setTag(holder);
+        } else {
+            holder = (ViewHolder) listItemView.getTag();
         }
 
         Book currentBook = getItem(position);
 
-        ImageView thumbnailView = (ImageView) listItemView.findViewById(R.id.small_thumbnail);
         if (currentBook.getmThumbnailUrl() == null) {
-            thumbnailView.setImageResource(R.drawable.no_image_found_placeholder);
+            holder.thumbnailView.setImageResource(R.drawable.no_image_found_placeholder);
         } else {
-            Picasso.with(getContext()).load(currentBook.getmThumbnailUrl()).into(thumbnailView);
+            Picasso.with(getContext()).load(currentBook.getmThumbnailUrl()).into(holder.thumbnailView);
         }
 
-        TextView titleView = (TextView) listItemView.findViewById(R.id.book_title);
-        titleView.setText(currentBook.getmTitle());
+        holder.titleView.setText(currentBook.getmTitle());
 
-        TextView descriptionView = (TextView) listItemView.findViewById(R.id.book_description);
-        descriptionView.setText(currentBook.getmDescription());
+        holder.descriptionView.setText(currentBook.getmDescription());
 
-        TextView authorView = (TextView) listItemView.findViewById(R.id.book_author);
-        authorView.setText(currentBook.getmAuthor());
-
+        holder.authorView.setText(currentBook.getmAuthor());
 
         return listItemView;
 
+    }
+
+    private static class ViewHolder {
+        TextView authorView;
+        TextView titleView;
+        TextView descriptionView;
+        ImageView thumbnailView;
     }
 
 }
