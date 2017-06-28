@@ -70,9 +70,21 @@ public final class Utils {
 
                 String title = volumeInfo.getString("title");
 
-                String authors = volumeInfo.getString("authors");
+                String authors;
+                if (volumeInfo.has("authors")) {
+                    // parse the authors field
+                    authors = volumeInfo.getString("authors");
+                } else {
+                    // Authors placeholder text (e.g. "Author N/A")
+                    authors = "Author N/A";
+                }
 
-                String description = volumeInfo.getString("description");
+                String description;
+                if (volumeInfo.has("description")){
+                    description = volumeInfo.getString("description");
+                }else {
+                    description = "Description N/A";
+                }
 
                 String thumbnailURL = imageLinks.getString("smallThumbnail");
 
@@ -83,7 +95,7 @@ public final class Utils {
                 books.add(book);
             }
         } catch (JSONException e) {
-            Log.e("Utils", "extractFeatureFromJson: Problem parsing the earthquake JSON results", e);
+            Log.e("Utils", "extractFeatureFromJson: Problem parsing the JSON results", e);
             e.printStackTrace();
         }
         return books;
