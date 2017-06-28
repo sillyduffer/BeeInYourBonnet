@@ -59,7 +59,12 @@ public final class Utils {
         try {
             JSONObject baseJsonResponse = new JSONObject(bookJSON);
 
-            JSONArray bookArray = baseJsonResponse.getJSONArray("items");
+            JSONArray bookArray;
+            if (baseJsonResponse.has("items")){
+                bookArray = baseJsonResponse.getJSONArray("items");
+            }else {
+                return null;
+            }
 
             for (int i = 0; i < bookArray.length(); i++) {
                 JSONObject currentBook = bookArray.getJSONObject(i);
